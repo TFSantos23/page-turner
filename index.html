@@ -93,6 +93,14 @@
   return rows;
 }
 
+function splitList(text) {
+  return text.split(/[;,]/).map(function (item) {
+    return item.trim();
+  }).filter(function (item) {
+    return item !== "";
+  });
+}
+  
 function toBooks(text) {
   const rows = parseCSV(text);
   const headers = rows[0].map(function (h) { return h.trim().toLowerCase(); });
@@ -104,6 +112,8 @@ function toBooks(text) {
     for (let c = 0; c < headers.length; c++) {
       book[headers[c]] = (row[c] || "").trim();
     }
+    book.genre = splitList(book.genre);
+    book.mood = splitList(book.mood);
     if (book.title) {
       book.pages = Number(book.pages) || 0;
       result.push(book);
@@ -130,17 +140,21 @@ loadBooks();
   function getMatching() {
     const mood = moodFilter.value;
     const maxPages = Number(pagesFilter.value);
-
+  
     const chosenGenres = [];
     for (const checkbox of genreBoxes) {
       if (checkbox.checked) {
         chosenGenres.push(checkbox.value);
       }
     }
-
+  
     return books.filter(function (book) {
-      const genreOk = chosenGenres.length === 0 || chosenGenres.includes(book.genre);
-      const moodOk = mood === "" || book.mood === mood;
+      // CHANGED: genre check
+      const genreOk = chosenGenres.length === 0 || chosenGenres.some(function (g) {
+        return book.genre.includes(g);
+      });
+      // CHANGED: mood check
+      const moodOk = mood === "" || book.mood.includes(mood);
       const pagesOk = maxPages === 0 || book.pages <= maxPages;
       return genreOk && pagesOk && moodOk;
     });
