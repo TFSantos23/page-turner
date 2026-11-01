@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What should I read next?</title>
+  <title>É para ler o quê?</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>What should I read next?</h1>
+  <h1>É para ler o quê?</h1>
 
 <label>Altura
   <select id="mood">
@@ -36,184 +37,13 @@
 </fieldset>
 
 <br><br>
-<button id="pick">Show me options</button>
-<button id="more" hidden>Show other options</button>
-<button id="clear">Clear filters</button>
+<button id="pick">Opções</button>
+<button id="more" hidden>Outras opções</button>
+<button id="clear">Limpar filtros</button>
 
-<p id="message">Loading books…</p>
+<p id="message">A carregar livros…</p>
 
 <div id="results"></div>
 
-<script>
-  const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTDFr9pjIJK0Xfj-3Rwu_e8e2cjYVU-JmAHt-23TpMkdv99-2R70Ot_Rf1JQph0esLZQMn9hczSOKyX/pub?gid=0&single=true&output=csv";
-
-  let books = [];
-
-  const HOW_MANY = 3;
-
-  const box = document.getElementById("results");
-  const genreFilter = document.getElementById("genre");
-  const genreBoxes = genreFilter.querySelectorAll("input");
-  const moodFilter = document.getElementById("mood");
-  const pagesFilter = document.getElementById("pages");
-  const pickButton = document.getElementById("pick");
-  const moreButton = document.getElementById("more");
-  const clearButton = document.getElementById("clear");
-
-  let pool = [];
-  let shown = 0;
-
-  function parseCSV(text) {
-  const rows = [];
-  let row = [];
-  let cell = "";
-  let inQuotes = false;
-
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (inQuotes) {
-      if (c === '"') {
-        if (text[i + 1] === '"') { cell += '"'; i++; }
-        else { inQuotes = false; }
-      } else {
-        cell += c;
-      }
-    } else if (c === '"') {
-      inQuotes = true;
-    } else if (c === ",") {
-      row.push(cell); cell = "";
-    } else if (c === "\n" || c === "\r") {
-      if (c === "\r" && text[i + 1] === "\n") { i++; }
-      row.push(cell); rows.push(row); row = []; cell = "";
-    } else {
-      cell += c;
-    }
-  }
-  if (cell !== "" || row.length > 0) { row.push(cell); rows.push(row); }
-  return rows;
-}
-
-function splitList(text) {
-  return text.split(/[;,]/).map(function (item) {
-    return item.trim().toLowerCase();
-  }).filter(function (item) {
-    return item !== "";
-  });
-}
-  
-function toBooks(text) {
-  const rows = parseCSV(text);
-  const headers = rows[0].map(function (h) { return h.trim().toLowerCase(); });
-  const result = [];
-
-  for (let i = 1; i < rows.length; i++) {
-    const row = rows[i];
-    const book = {};
-    for (let c = 0; c < headers.length; c++) {
-      book[headers[c]] = (row[c] || "").trim();
-    }
-    book.genre = splitList(book.genre);
-    book.mood = splitList(book.mood);
-    if (book.title) {
-      book.pages = Number(book.pages) || 0;
-      result.push(book);
-    }
-  }
-  return result;
-}
-
-const message = document.getElementById("message");
-
-async function loadBooks() {
-  try {
-    const response = await fetch(SHEET_URL);
-    const text = await response.text();
-    books = toBooks(text);
-    console.log(Object.keys(books[0]));
-    console.log([...new Set(books.flatMap(function (b) { return b.mood; }))]);
-    message.textContent = books.length + " books loaded from your sheet.";
-  } catch (error) {
-    message.textContent = "Couldn’t load the sheet. Check the link.";
-  }
-}
-
-loadBooks();
-
-  function getMatching() {
-    const mood = moodFilter.value;
-    const maxPages = Number(pagesFilter.value);
-  
-    const chosenGenres = [];
-    for (const checkbox of genreBoxes) {
-      if (checkbox.checked) {
-        chosenGenres.push(checkbox.value);
-      }
-    }
-  
-    return books.filter(function (book) {
-      // CHANGED: genre check
-      const genreOk = chosenGenres.length === 0 || chosenGenres.some(function (g) {
-        return book.genre.includes(g);
-      });
-      // CHANGED: mood check
-      const moodOk = mood === "" || book.mood.includes(mood);
-      const pagesOk = maxPages === 0 || book.pages <= maxPages;
-      return genreOk && pagesOk && moodOk;
-    });
-  }
-
-  function shuffle(list) {
-    const copy = list.slice();
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = copy[i];
-      copy[i] = copy[j];
-      copy[j] = temp;
-    }
-    return copy;
-  }
-
-  function showNext() {
-    box.innerHTML = "";
-
-    if (pool.length === 0) {
-      box.innerHTML = "<p>No books match these filters.</p>";
-      moreButton.hidden = true;
-      return;
-    }
-
-    const count = Math.min(HOW_MANY, pool.length);
-    for (let i = 0; i < count; i++) {
-      const book = pool[(shown + i) % pool.length];
-      box.innerHTML += "<p>" + book.title + " by " + book.author + " (" + book.pages + " pages)</p>";
-    }
-
-    shown = shown + count;
-    moreButton.hidden = pool.length <= HOW_MANY;
-  }
-
-  function pickOptions() {
-    pool = shuffle(getMatching());
-    shown = 0;
-    showNext();
-  }
-
-  function clearFilters() {
-    for (const checkbox of genreBoxes) {
-      checkbox.checked = false;
-    }
-    moodFilter.value = "";
-    pagesFilter.value = "";
-
-    pool = [];
-    shown = 0;
-    box.innerHTML = "";
-    moreButton.hidden = true;
-  }
-
-  pickButton.onclick = pickOptions;
-  moreButton.onclick = showNext;
-  clearButton.onclick = clearFilters;
-</script>
 </body>
 </html>
