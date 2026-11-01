@@ -11,9 +11,9 @@
 <label>Altura
   <select id="mood">
     <option value="">Qualquer altura</option>
-    <option value="férias">Férias</option>
-    <option value="aulas">Aulas</option>
-    <option value="avaliações">Avaliações</option>
+    <option>Férias</option>
+    <option>Aulas</option>
+    <option>Avaliações</option>
   </select>
 </label>
 
@@ -95,7 +95,7 @@
 
 function splitList(text) {
   return text.split(/[;,]/).map(function (item) {
-    return item.trim();
+    return item.trim().toLowerCase();
   }).filter(function (item) {
     return item !== "";
   });
