@@ -1,6 +1,6 @@
 body {
     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    max-width: 900px;
+    max-width: 640px;
     margin: 0 auto;
     padding: 20px 16px 60px;
     background: #eef2f4;
@@ -40,20 +40,20 @@ body {
     margin: 4px 6px 4px 0;
     border: 1px solid #1f6f6a;
     border-radius: 8px;
-    background: #ffcc33;
+    background: #1f6f6a;
     color: #ffffff;
     cursor: pointer;
   }
 
   #clear, #more {
     background: transparent;
-    color: #ffcc33;
+    color: #1f6f6a;
   }
 
   #results p {
     background: #ffffff;
     border: 1px solid #c5d0d8;
-    border-left: 20px solid #ffcc33;
+    border-left: 20px solid #1f6f6a;
     border-radius: 6px;
     padding: 12px 14px;
     margin: 10px 0;
