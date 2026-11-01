@@ -183,7 +183,7 @@ loadBooks();
     const count = Math.min(HOW_MANY, pool.length);
     for (let i = 0; i < count; i++) {
       const book = pool[(shown + i) % pool.length];
-      box.innerHTML += "<p>" + book.title + " by " + book.author + " (" + book.pages + " pages);
+      box.innerHTML += "<p>" + book.title + " by " + book.author + " (" + book.pages + " pages)";
     }
 
     shown = shown + count;
