@@ -84,9 +84,9 @@ async function loadBooks() {
     books = toBooks(text);
     console.log(Object.keys(books[0]));
     console.log([...new Set(books.flatMap(function (b) { return b.mood; }))]);
-    message.textContent = books.length + " books loaded from your sheet.";
+    message.textContent = books.length + " livros carregados.";
   } catch (error) {
-    message.textContent = "Couldn’t load the sheet. Check the link.";
+    message.textContent = "O gajo que programou isto não percebe nada e não conseguimos aceder à lista de livros. Verifica o link.";
   }
 }
 
@@ -130,7 +130,7 @@ loadBooks();
     box.innerHTML = "";
 
     if (pool.length === 0) {
-      box.innerHTML = "<p>No books match these filters.</p>";
+      box.innerHTML = "<p>Não há livros desses.</p>";
       moreButton.hidden = true;
       return;
     }
@@ -138,7 +138,7 @@ loadBooks();
     const count = Math.min(HOW_MANY, pool.length);
     for (let i = 0; i < count; i++) {
       const book = pool[(shown + i) % pool.length];
-      box.innerHTML += "<p>" + book.title + " by " + book.author + " (" + book.pages + " pages)</p>";
+      box.innerHTML += "<p>" + book.title + " de " + book.author + " (" + book.pages + " páginas)</p>";
     }
 
     shown = shown + count;
