@@ -11,9 +11,9 @@
 <label>Altura
   <select id="mood">
     <option value="">Qualquer altura</option>
-    <option>Férias</option>
-    <option>Aulas</option>
-    <option>Avaliações</option>
+    <option value="férias">Férias</option>
+    <option value="aulas">Aulas</option>
+    <option value="avaliações">Avaliações</option>
   </select>
 </label>
 
@@ -129,6 +129,8 @@ async function loadBooks() {
     const response = await fetch(SHEET_URL);
     const text = await response.text();
     books = toBooks(text);
+    console.log(Object.keys(books[0]));
+    console.log([...new Set(books.flatMap(function (b) { return b.mood; }))]);
     message.textContent = books.length + " books loaded from your sheet.";
   } catch (error) {
     message.textContent = "Couldn’t load the sheet. Check the link.";
