@@ -12,6 +12,7 @@
   const pickButton = document.getElementById("pick");
   const moreButton = document.getElementById("more");
   const clearButton = document.getElementById("clear");
+  const allButton = document.getElementById("all");
 
   let pool = [];
   let shown = 0;
@@ -95,14 +96,12 @@ loadBooks();
   function getMatching() {
     const mood = moodFilter.value;
     const maxPages = Number(pagesFilter.value);
-  
     const chosenGenres = [];
     for (const checkbox of genreBoxes) {
       if (checkbox.checked) {
         chosenGenres.push(checkbox.value);
       }
     }
-  
     return books.filter(function (book) {
       // CHANGED: genre check
       const genreOk = chosenGenres.length === 0 || chosenGenres.some(function (g) {
@@ -128,21 +127,29 @@ loadBooks();
 
   function showNext() {
     box.innerHTML = "";
-
     if (pool.length === 0) {
       box.innerHTML = "<p>Não há livros desses.</p>";
       moreButton.hidden = true;
+      allButton.hidden = true;
       return;
     }
-
     const count = Math.min(HOW_MANY, pool.length);
     for (let i = 0; i < count; i++) {
       const book = pool[(shown + i) % pool.length];
       box.innerHTML += "<p>" + book.title + " de " + book.author + " (" + book.pages + " páginas)</p>";
     }
-
     shown = shown + count;
     moreButton.hidden = pool.length <= HOW_MANY;
+    allButton.hidden = pool.length <= HOW_MANY;
+  }
+
+  function showAll() {
+    box.innerHTML = "";
+    for (const book of pool) {
+      box.innerHTML += "<p>" + book.title + " de " + book.author + " (" + book.pages + " páginas)</p>";
+    }
+    moreButton.hidden = true;
+    allButton.hidden = true;
   }
 
   function pickOptions() {
@@ -162,8 +169,10 @@ loadBooks();
     shown = 0;
     box.innerHTML = "";
     moreButton.hidden = true;
+    allButton.hidden = true;
   }
 
   pickButton.onclick = pickOptions;
   moreButton.onclick = showNext;
   clearButton.onclick = clearFilters;
+  allButton.onclick = showAll;
