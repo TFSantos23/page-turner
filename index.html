@@ -27,9 +27,10 @@
   </select>
 </label>
 
-<label>Páginas
-  <input type="number" id="pages">
-</label>
+<div class="filter">
+  <label for="pages" class="filter-title">Páginas: <strong id="pages-label">sem limite</strong></label>
+  <input type="range" id="pages" min="0" max="1000" step="50" value="1000">
+</div>
 
 <fieldset id="genre" class="chips">
   <label><input type="checkbox" value="sci-fi/fantasia"><span>Sci-fi/Fantasia</span></label>
