@@ -8,24 +8,24 @@ body {
     line-height: 1.5;
   }
 
-  h1 {
+h1 {
     font-family: Georgia, serif;
     margin-bottom: 16px;
   }
 
-  fieldset {
+fieldset {
     border: 1px solid #c5d0d8;
     border-radius: 8px;
     background: #ffffff;
     margin: 12px 0;
   }
 
-  fieldset label {
+fieldset label {
     display: inline-block;
     margin: 4px 14px 4px 0;
   }
 
-  select, input[type=number] {
+select, input[type=number] {
     font: inherit;
     padding: 8px;
     border: 1px solid #c5d0d8;
@@ -33,7 +33,7 @@ body {
     margin: 4px 0 8px 6px;
   }
 
-  button {
+button {
     font: inherit;
     font-weight: 600;
     padding: 12px 18px;
@@ -45,12 +45,12 @@ body {
     cursor: pointer;
   }
 
-  #clear, #more {
+#clear, #more {
     background: transparent;
     color: #1f6f6a;
   }
 
-  #results p {
+#results p {
     background: #ffffff;
     border: 1px solid #c5d0d8;
     border-left: 20px solid #1f6f6a;
@@ -58,3 +58,48 @@ body {
     padding: 12px 14px;
     margin: 10px 0;
   }
+
+
+
+.filter {
+  margin: 12px 0;
+}
+
+.filter-title {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.segmented {
+  display: inline-flex;
+  border: 1px solid #1f6f6a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.segmented label {
+  position: relative;
+  margin: 0;
+}
+
+.segmented input {
+  position: absolute;
+  opacity: 0;
+}
+
+.segmented span {
+  display: block;
+  padding: 8px 14px;
+  color: #1f6f6a;
+  cursor: pointer;
+}
+
+.segmented input:checked + span {
+  background: #1f6f6a;
+  color: #ffffff;
+}
+
+.segmented input:focus-visible + span {
+  outline: 3px solid #1f6f6a;
+  outline-offset: -3px;
+}
