@@ -10,15 +10,15 @@
   <h1>É para ler o quê?</h1>
 
 <div class="filter">
-  <span class="filter-title">Língua</span>
+  <span class="filter-title"></span>
   <div class="segmented" id="language">
-    <label><input type="radio" name="language" value="" checked><span>Qualquer</span></label>
     <label><input type="radio" name="language" value="português"><span>Português</span></label>
+    <label><input type="radio" name="language" value="" checked><span>Qualquer</span></label>
     <label><input type="radio" name="language" value="inglês"><span>Inglês</span></label>
   </div>
 </div>
   
-<label>Altura
+<label>
   <select id="mood">
     <option value="">Qualquer altura</option>
     <option value="férias">Férias</option>
@@ -27,12 +27,11 @@
   </select>
 </label>
 
-<label>Número de Páginas
+<label>Páginas
   <input type="number" id="pages">
 </label>
 
 <fieldset id="genre" class="chips">
-  <legend>Género</legend>
   <label><input type="checkbox" value="sci-fi/fantasia"><span>Sci-fi/Fantasia</span></label>
   <label><input type="checkbox" value="humor"><span>Humor</span></label>
   <label><input type="checkbox" value="romance"><span>Romance</span></label>
