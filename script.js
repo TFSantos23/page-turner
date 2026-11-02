@@ -5,7 +5,6 @@
   const HOW_MANY = 3;
 
   const box = document.getElementById("results");
-  const chosenLanguage = document.querySelector("#language input:checked").value;
   const genreFilter = document.getElementById("genre");
   const genreBoxes = genreFilter.querySelectorAll("input");
   const moodFilter = document.getElementById("mood");
@@ -106,8 +105,13 @@ loadBooks();
     pagesLabel.textContent = noLimit ? "sem limite" : "até " + value + " páginas";
   }
 
+  function normalize(text) {
+    return text.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
   function getMatching() {
     const mood = moodFilter.value;
+    const chosenLanguage = document.querySelector("#language input:checked").value;
     const maxPages = Number(pagesFilter.value);
     const noPageLimit = maxPages >= Number(pagesFilter.max);
     const chosenGenres = [];
