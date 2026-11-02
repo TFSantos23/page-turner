@@ -128,6 +128,18 @@ loadBooks();
     return copy;
   }
 
+  function bookHTML(book) {
+  const pages = book.pages ? book.pages + " pages" : "";
+  return '<div class="book">' +
+    '<div class="book-text">' +
+      '<span class="book-title">' + book.title + '</span>' +
+      '<span class="book-author">' + book.author + '</span>' +
+      '<span class="book-genres">' + book.genre.join(", ") + '</span>' +
+    '</div>' +
+    '<div class="book-pages">' + pages + '</div>' +
+  '</div>';
+  }
+
   function showNext() {
     box.innerHTML = "";
     if (pool.length === 0) {
@@ -139,7 +151,7 @@ loadBooks();
     const count = Math.min(HOW_MANY, pool.length);
     for (let i = 0; i < count; i++) {
       const book = pool[(shown + i) % pool.length];
-      box.innerHTML += "<p>" + book.title + " de " + book.author + " (" + book.pages + " páginas)</p>";
+      box.innerHTML += bookHTML(book);
     }
     shown = shown + count;
     moreButton.hidden = pool.length <= HOW_MANY;
