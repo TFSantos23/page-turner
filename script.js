@@ -134,9 +134,7 @@ loadBooks();
     '<div class="book-text">' +
       '<span class="book-title">' + book.title + '</span>' +
       '<span class="book-author">' + book.author + '</span>' +
-      '<span class="book-genres">' + book.genre.join(", ") + '</span>' +
-    '</div>' +
-    '<div class="book-pages">' + pages + '</div>' +
+    '<div class="book-pages">' + páginas + '</div>' +
   '</div>';
   }
 
