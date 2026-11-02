@@ -5,6 +5,7 @@
   const HOW_MANY = 3;
 
   const box = document.getElementById("results");
+  const chosenLanguage = document.querySelector("#language input:checked").value;
   const genreFilter = document.getElementById("genre");
   const genreBoxes = genreFilter.querySelectorAll("input");
   const moodFilter = document.getElementById("mood");
@@ -110,7 +111,9 @@ loadBooks();
       // CHANGED: mood check
       const moodOk = mood === "" || book.mood.includes(mood);
       const pagesOk = maxPages === 0 || book.pages <= maxPages;
-      return genreOk && pagesOk && moodOk;
+      const languageOk = chosenLanguage === "" ||
+        normalize(book.language || "") === normalize(chosenLanguage);
+      return genreOk && pagesOk && moodOk && languageOk;
     });
   }
 
@@ -170,6 +173,7 @@ loadBooks();
     box.innerHTML = "";
     moreButton.hidden = true;
     allButton.hidden = true;
+    document.querySelector('#language input[value=""]').checked = true;
   }
 
   pickButton.onclick = pickOptions;
