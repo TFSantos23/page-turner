@@ -176,6 +176,16 @@ button {
   outline-offset: 2px;
 }
 
+
+
+input[type=range] {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  accent-color: #1f6f6a;
+  margin: 6px 0;
+}
+
 .segmented input:focus-visible + span {
   outline: 3px solid #1f6f6a;
   outline-offset: -3px;
