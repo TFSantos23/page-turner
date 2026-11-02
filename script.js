@@ -159,7 +159,7 @@ loadBooks();
   function showAll() {
     box.innerHTML = "";
     for (const book of pool) {
-      box.innerHTML += "<p>" + book.title + " de " + book.author + " (" + book.pages + " páginas)</p>";
+      box.innerHTML += bookHTML(book);
     }
     moreButton.hidden = true;
     allButton.hidden = true;
