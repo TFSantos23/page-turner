@@ -182,9 +182,12 @@ loadBooks();
     allButton.hidden = true;
   }
 
-  function pickOptions() {
+   function pickOptions() {
     pool = shuffle(getMatching());
     shown = 0;
+    message.textContent = pool.length === 1
+      ? "1 livro corresponde aos filtros."
+      : pool.length + " livros correspondem aos filtros.";
     showNext();
   }
 
@@ -201,6 +204,7 @@ loadBooks();
     box.innerHTML = "";
     moreButton.hidden = true;
     allButton.hidden = true;
+    message.textContent = books.length + " livros carregados.";
     document.querySelector('#language input[value=""]').checked = true;
   }
 
