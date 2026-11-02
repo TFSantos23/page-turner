@@ -18,14 +18,15 @@
   </div>
 </div>
   
-<label>
-  <select id="mood">
-    <option value="">Qualquer altura</option>
-    <option value="férias">Férias</option>
-    <option value="aulas">Aulas</option>
-    <option value="avaliações">Avaliações</option>
-  </select>
-</label>
+<div class="filter">
+  <span class="filter-title"></span>
+  <div class="segmented" id="mood">
+    <label><input type="radio" name="mood" value="" checked><span>Qualquer</span></label>
+    <label><input type="radio" name="mood" value="férias"><span>Férias</span></label>
+    <label><input type="radio" name="mood" value="aulas"><span>Aulas</span></label>
+    <label><input type="radio" name="mood" value="avaliações"><span>Avaliações</span></label>
+  </div>
+</div>
 
 <div class="filter">
   <label for="pages" class="filter-title">Páginas: <strong id="pages-label">sem limite</strong></label>
