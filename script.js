@@ -142,12 +142,12 @@ loadBooks();
   }
 
   function bookHTML(book) {
-  const pages = book.pages ? book.pages + " pages" : "";
+  const pages = book.pages ? book.pages + " páginas" : "";
   return '<div class="book">' +
     '<div class="book-text">' +
       '<span class="book-title">' + book.title + '</span>' +
       '<span class="book-author">' + book.author + '</span>' +
-    '<div class="book-pages">' + páginas + '</div>' +
+    '<div class="book-pages">' + pages + '</div>' +
   '</div>';
   }
 
