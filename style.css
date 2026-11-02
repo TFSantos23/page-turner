@@ -50,14 +50,37 @@ button {
     color: #1f6f6a;
   }
 
-#results p {
-    background: #ffffff;
-    border: 1px solid #c5d0d8;
-    border-left: 20px solid #1f6f6a;
-    border-radius: 6px;
-    padding: 12px 14px;
-    margin: 10px 0;
-  }
+#results .book {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  background: #ffffff;
+  border: 1px solid #c5d0d8;
+  border-left: 8px solid #1f6f6a;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin: 10px 0;
+}
+
+.book-text span {
+  display: block;
+}
+
+.book-title {
+  font-weight: 700;
+}
+
+.book-genres {
+  font-size: 0.85rem;
+  color: #5d6b7a;
+}
+
+.book-pages {
+  white-space: nowrap;
+  text-align: right;
+  color: #5d6b7a;
+}
 
 
 
