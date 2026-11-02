@@ -190,9 +190,3 @@ input[type=range] {
   outline: 3px solid #1f6f6a;
   outline-offset: -3px;
 }
-
-
-
-.segmented {
-  flex-wrap: wrap;
-}
