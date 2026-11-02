@@ -53,7 +53,7 @@ button {
 #results .book {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   gap: 16px;
   background: #ffffff;
   border: 1px solid #c5d0d8;
