@@ -7,7 +7,6 @@
   const box = document.getElementById("results");
   const genreFilter = document.getElementById("genre");
   const genreBoxes = genreFilter.querySelectorAll("input");
-  const moodFilter = document.getElementById("mood");
   const pagesFilter = document.getElementById("pages");
   const pickButton = document.getElementById("pick");
   const moreButton = document.getElementById("more");
@@ -110,7 +109,7 @@ loadBooks();
   }
 
   function getMatching() {
-    const mood = moodFilter.value;
+    const mood = document.querySelector("#mood input:checked").value;
     const chosenLanguage = document.querySelector("#language input:checked").value;
     const maxPages = Number(pagesFilter.value);
     const noPageLimit = maxPages >= Number(pagesFilter.max);
@@ -192,7 +191,7 @@ loadBooks();
     for (const checkbox of genreBoxes) {
       checkbox.checked = false;
     }
-    moodFilter.value = "";
+    document.querySelector('#mood input[value=""]').checked = true;
     pagesFilter.value = pagesFilter.max;
     updatePagesLabel();
 
