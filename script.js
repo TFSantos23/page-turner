@@ -14,6 +14,7 @@
   const moreButton = document.getElementById("more");
   const clearButton = document.getElementById("clear");
   const allButton = document.getElementById("all");
+  const pagesLabel = document.getElementById("pages-label");
 
   let pool = [];
   let shown = 0;
@@ -84,6 +85,11 @@ async function loadBooks() {
     const response = await fetch(SHEET_URL);
     const text = await response.text();
     books = toBooks(text);
+    const longest = Math.max(...books.map(function (b) { return b.pages; }));
+    const top = Math.max(100, Math.ceil(longest / 50) * 50);
+    pagesFilter.max = top;
+    pagesFilter.value = top;
+    updatePagesLabel();
     console.log(Object.keys(books[0]));
     console.log([...new Set(books.flatMap(function (b) { return b.mood; }))]);
     message.textContent = books.length + " livros carregados.";
@@ -94,9 +100,16 @@ async function loadBooks() {
 
 loadBooks();
 
+  function updatePagesLabel() {
+    const value = Number(pagesFilter.value);
+    const noLimit = value >= Number(pagesFilter.max);
+    pagesLabel.textContent = noLimit ? "sem limite" : "até " + value + " páginas";
+  }
+
   function getMatching() {
     const mood = moodFilter.value;
     const maxPages = Number(pagesFilter.value);
+    const noPageLimit = maxPages >= Number(pagesFilter.max);
     const chosenGenres = [];
     for (const checkbox of genreBoxes) {
       if (checkbox.checked) {
@@ -110,7 +123,7 @@ loadBooks();
       });
       // CHANGED: mood check
       const moodOk = mood === "" || book.mood.includes(mood);
-      const pagesOk = maxPages === 0 || book.pages <= maxPages;
+      const pagesOk = noPageLimit || book.pages <= maxPages;
       const languageOk = chosenLanguage === "" ||
         normalize(book.language || "") === normalize(chosenLanguage);
       return genreOk && pagesOk && moodOk && languageOk;
@@ -176,7 +189,8 @@ loadBooks();
       checkbox.checked = false;
     }
     moodFilter.value = "";
-    pagesFilter.value = "";
+    pagesFilter.value = pagesFilter.max;
+    updatePagesLabel();
 
     pool = [];
     shown = 0;
@@ -190,3 +204,4 @@ loadBooks();
   moreButton.onclick = showNext;
   clearButton.onclick = clearFilters;
   allButton.onclick = showAll;
+  pagesFilter.oninput = updatePagesLabel;
