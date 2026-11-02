@@ -150,6 +150,7 @@ loadBooks();
     '<div class="book-text">' +
       '<span class="book-title">' + book.title + '</span>' +
       '<span class="book-author">' + book.author + '</span>' +
+    '</div>' +
     '<div class="book-pages">' + pages + '</div>' +
   '</div>';
   }
