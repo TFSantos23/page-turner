@@ -99,6 +99,60 @@ button {
   color: #ffffff;
 }
 
+
+
+.chips {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 12px 0;
+}
+
+.chips legend {
+  padding: 0;
+  margin-bottom: 6px;
+}
+
+.chips label {
+  position: relative;
+  display: inline-block;
+  margin: 0 6px 8px 0;
+}
+
+.chips input {
+  position: absolute;
+  opacity: 0;
+}
+
+.chips span {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid #1f6f6a;
+  border-radius: 99px;
+  background: #ffffff;
+  color: #1f6f6a;
+  cursor: pointer;
+  user-select: none;
+}
+
+.chips span:hover {
+  background: #e3efee;
+}
+
+.chips input:checked + span {
+  background: #1f6f6a;
+  color: #ffffff;
+}
+
+.chips input:checked + span::before {
+  content: "✓ ";
+}
+
+.chips input:focus-visible + span {
+  outline: 3px solid #1f6f6a;
+  outline-offset: 2px;
+}
+
 .segmented input:focus-visible + span {
   outline: 3px solid #1f6f6a;
   outline-offset: -3px;
